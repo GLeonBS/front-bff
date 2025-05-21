@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import style from './App.module.css';
-import type { Album, DataResponse, Post, Todo, User } from './types';
+import type { DataResponse } from './types';
 
-const BASE_PATH = 'https://jsonplaceholder.typicode.com';
+const BASE_PATH = 'http://localhost:3000';
 
 function App() {
   const [id, setId] = useState<number>();
@@ -10,20 +10,10 @@ function App() {
 
   const getUserData = async() => {
     try {
-      const userData = await Promise.all([
-        fetch(`${BASE_PATH}/users/${id}`).then(res => res.json()),
-        fetch(`${BASE_PATH}/posts/?userId=${id}`).then(res => res.json()),
-        fetch(`${BASE_PATH}/albums/?userId=${id}`).then(res => res.json()),
-        fetch(`${BASE_PATH}/todos/?userId=${id}`).then(res => res.json()),
-      ])
+      const userPromise = await fetch(`${BASE_PATH}/user/${id}`);
+      const userData = await userPromise.json();
 
-      const [userPromise, postPromise, albumsPromise, todosPromise] = userData;
-      const user: User = await userPromise;
-      const posts: Post[] = await postPromise;
-      const albums: Album[] = await albumsPromise;
-      const todos: Todo[] = await todosPromise;
-
-      setData({ user, posts, albums, todos });
+      setData(userData);
     } catch (error) {
       console.error(error);
     }
