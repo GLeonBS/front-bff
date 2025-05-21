@@ -1,0 +1,26 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    padding: 4px;
+}
+
+.btn{
+    padding: 10px;
+    color:#fff;
+    background-color: #1d4ed8;
+    width: 29em;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.btn:hover{
+    background-color: #3b82f6;
+}
+
+.input{
+    height: 1.8em;
+    width: 28em;
+}
